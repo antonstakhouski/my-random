@@ -38,10 +38,19 @@ def calc_params(lst):
     return (mx, dx, sigma)
 
 
+def uniformity_test(lst):
+    k = 0
+    for i in range(0, len(lst) // 2):
+        if (lst[2 * i] ** 2) + (lst[(2 * i) + 1] ** 2) < 1:
+            k += 1
+    print("%f -> %f" % ((2 * k / len(lst)), (math.pi / 4)))
+
+
 if __name__ == "__main__":
     if len(sys.argv) != 4:
         print("Using: " + sys.argv[0] + " a R0 m")
         exit(0)
     lst = my_random(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
     calc_params(lst)
+    uniformity_test(lst)
     print_hist(lst)
