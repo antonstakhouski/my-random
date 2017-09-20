@@ -3,7 +3,6 @@
 
 import sys
 import math
-import numpy as np
 import matplotlib.pyplot as plt
 
 ARRAY_LEN = 1000000
@@ -46,11 +45,43 @@ def uniformity_test(lst):
     print("%f -> %f" % ((2 * k / len(lst)), (math.pi / 4)))
 
 
+def aperiodic_test(a, r0, m):
+    lst1 = my_random(a, r0, m)
+    xv = lst1[-1]
+
+    lst2 = my_random(a, r0, m)
+    i1 = -1
+    i2 = -1
+    for i in range(0, ARRAY_LEN):
+        if (lst1[i] == xv) and (lst2[i] == xv) and (i1 == -1):
+            i1 = i
+            continue
+        if (lst1[i] == xv) and (lst2[i] == xv) and (i2 == -1):
+            i2 = i
+            break
+    p = i2 - i1
+
+    lst1 = my_random(a, r0, m)
+    lst2 = my_random(a, r0, m)
+    i3 = -1
+    for i in range(0, ARRAY_LEN):
+        if (lst1[i] == lst1[i + p]) and (lst2[i] == lst2[i + p]):
+            i3 = i
+            break
+    l = i3 + p
+    print("P = %d" % p)
+    print("L = %d" % l)
+
+
 if __name__ == "__main__":
     if len(sys.argv) != 4:
         print("Using: " + sys.argv[0] + " a R0 m")
         exit(0)
-    lst = my_random(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
+    a = int(sys.argv[1])
+    r0 = int(sys.argv[2])
+    m = int(sys.argv[3])
+    lst = my_random(a, r0, m)
     calc_params(lst)
     uniformity_test(lst)
-    print_hist(lst)
+    aperiodic_test(a, r0, m)
+    #  print_hist(lst)
