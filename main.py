@@ -1,26 +1,31 @@
 #!/usr/bin/env python
 
-
 import sys
 import math
 import matplotlib.pyplot as plt
 
-ARRAY_LEN = 1000000
+ARR_LEN = 1000000
 
 
-def my_random(a, r0, m):
-    rn_1 = r0
-    lst = list()
-    lst.append(r0)
-    for i in range(1, ARRAY_LEN):
-        arn_1 = a * rn_1
-        rn_1 = arn_1 % m
-        lst.append(rn_1 / m)
-    return lst
+class Random:
+    def __init__(self, r0, a, m):
+        self.r0 = r0
+        self.a = a
+        self.m = m
+
+    def seed(self, value):
+        self.r0 = value
+
+    def rand(self):
+        self.seed((self.a * self.r0) % self.m)
+        return self.r0 / self.m
 
 
 def print_hist(lst):
+    #  plt.hist(lst, bins=20)
     plt.hist(lst, bins=20)
+    #  plt.plot(lst, 'r--', linewidth=1)
+    plt.grid(True)
     plt.show()
 
 
@@ -46,13 +51,19 @@ def uniformity_test(lst):
 
 
 def aperiodic_test(a, r0, m):
-    lst1 = my_random(a, r0, m)
+    random = Random(r0, a, m)
+    lst1 = list()
+    for i in range(0, ARR_LEN):
+        lst1.append(random.rand())
     xv = lst1[-1]
 
-    lst2 = my_random(a, r0, m)
+    random.seed(r0)
+    lst2 = list()
+    for i in range(0, ARR_LEN):
+        lst2.append(random.rand())
     i1 = -1
     i2 = -1
-    for i in range(0, ARRAY_LEN):
+    for i in range(0, ARR_LEN):
         if (lst1[i] == xv) and (lst2[i] == xv) and (i1 == -1):
             i1 = i
             continue
@@ -60,11 +71,17 @@ def aperiodic_test(a, r0, m):
             i2 = i
             break
     p = i2 - i1
+    xp = lst2[p]
 
-    lst1 = my_random(a, r0, m)
-    lst2 = my_random(a, r0, m)
+    lst1 = list()
+    for i in range(0, ARR_LEN):
+        lst1.append(random.rand())
+    random.seed(xp)
+    lst2 = list()
+    for i in range(0, ARR_LEN):
+        lst2.append(random.rand())
     i3 = -1
-    for i in range(0, ARRAY_LEN):
+    for i in range(0, ARR_LEN - p):
         if (lst1[i] == lst1[i + p]) and (lst2[i] == lst2[i + p]):
             i3 = i
             break
@@ -80,7 +97,12 @@ if __name__ == "__main__":
     a = int(sys.argv[1])
     r0 = int(sys.argv[2])
     m = int(sys.argv[3])
-    lst = my_random(a, r0, m)
+
+    random = Random(r0, a, m)
+    lst = list()
+    for i in range(0, ARR_LEN):
+        lst.append(random.rand())
+
     calc_params(lst)
     uniformity_test(lst)
     aperiodic_test(a, r0, m)
