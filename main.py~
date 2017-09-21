@@ -106,4 +106,4 @@ if __name__ == "__main__":
     calc_params(lst)
     uniformity_test(lst)
     aperiodic_test(a, r0, m)
-    print_hist(lst)
+    #  print_hist(lst)
