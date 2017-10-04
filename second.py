@@ -24,7 +24,7 @@ class Random:
 
 
 def print_hist(lst):
-    plt.hist(lst, bins=20)
+    plt.hist(lst, bins=20, rwidth=0.9)
     plt.grid(True)
     plt.show()
 

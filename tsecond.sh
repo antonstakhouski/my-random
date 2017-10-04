@@ -1,3 +1,3 @@
 #!/bin/bash
 # progname eta lambda
-./second.py 9 0.5
+./second.py 2 0.5

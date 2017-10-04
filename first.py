@@ -23,7 +23,7 @@ class Random:
 
 def print_hist(lst):
     #  plt.hist(lst, bins=20)
-    plt.hist(lst, bins=20)
+    plt.hist(lst, bins=20, rwidth=0.9 )
     #  plt.plot(lst, 'r--', linewidth=1)
     plt.grid(True)
     plt.show()
@@ -71,18 +71,12 @@ def aperiodic_test(a, r0, m):
             i2 = i
             break
     p = i2 - i1
-    xp = lst2[p]
 
     lst1 = list()
     for i in range(0, ARR_LEN):
         lst1.append(random.rand())
-    random.seed(xp)
-    lst2 = list()
-    for i in range(0, ARR_LEN):
-        lst2.append(random.rand())
-    i3 = -1
     for i in range(0, ARR_LEN - p):
-        if (lst1[i] == lst1[i + p]) and (lst2[i] == lst2[i + p]):
+        if (lst1[i] == lst1[i + p]):
             i3 = i
             break
     l = i3 + p
