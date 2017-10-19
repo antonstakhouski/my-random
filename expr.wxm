@@ -29,6 +29,7 @@ float(p110 : res[5]);
 float(p111 : res[6]);
 float(p210 : res[7]);
 float(p211 : res[8]);
+p000 + p001 + p010 + p011 + p110 + p111 + p210 + p211;
 /* [wxMaxima: input   end   ] */
 
 

@@ -17,7 +17,7 @@ class Simulation:
         self.u = 1 - p
         self.u1 = 1 - pi1
         self.u2 = 1 - pi2
-        self.iterations = 100000
+        self.iterations = 1000000
         self.queue_max = 2
 
     def start(self):
