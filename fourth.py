@@ -14,12 +14,11 @@ class Ticket:
 
 class Simulation:
     def __init__(self, p=0.5, pi1=0.4, pi2=0.4):
-        self.p = p
-        self.pi1 = pi1
-        self.pi2 = pi2
-        self.iterations = 100
+        self.u = 1 - p
+        self.u1 = 1 - pi1
+        self.u2 = 1 - pi2
+        self.iterations = 100000
         self.queue_max = 2
-        self.out_counter = 0
 
     def start(self):
         tickets = []
@@ -36,7 +35,7 @@ class Simulation:
             ticket_prob = random.uniform(0.0, 1.0)
 
             # new ticket
-            if ticket_prob < (1 - self.p):
+            if ticket_prob < self.u:
                 ticket = Ticket()
                 ticket.pos = Ticket.last + 1
                 Ticket.last += 1
@@ -45,15 +44,14 @@ class Simulation:
             # channel2 state
             if channel2 > -1:
                 channel2_prob = random.uniform(0.0, 1.0)
-                if channel2_prob < (1 - self.pi2):
+                if channel2_prob < self.u2:
                     tickets[channel2].state = "finished"
                     channel2 = -1
-                    self.out_counter += 1
 
             # channel1 state
             if channel1 > -1:
                 channel1_prob = random.uniform(0.0, 1.0)
-                if channel1_prob < (1 - self.pi1):
+                if channel1_prob < self.u1:
                     pos = channel1
                     channel1 = -1
                     if channel2 < 0:
