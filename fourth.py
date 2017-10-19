@@ -91,9 +91,10 @@ class Simulation:
             queue_time += ticket.time_in_queue
             if ticket.state == "finished":
                 out_cnt += 1
+        print(len(queue))
         print("A =", out_cnt / self.iterations)
         print("Q =", out_cnt / len(tickets))
-        print("Wоч =", queue_time / len(tickets))
+        print("Wоч =", queue_time/ len(tickets))
 
 
 if __name__ == '__main__':
