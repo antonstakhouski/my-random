@@ -30,6 +30,9 @@ class Simulation:
         ticket = -1
 
         while counter < self.iterations:
+            for el in queue:
+                el.time_in_queue += 1
+
             ticket_prob = random.uniform(0.0, 1.0)
 
             # new ticket
@@ -83,8 +86,16 @@ class Simulation:
             ticket = -1
             counter += 1
 
-        A = self.out_counter / self.iterations
-        print("A =", A)
+        #  A = self.out_counter / self.iterations
+        out_cnt = 0
+        queue_time = 0
+        for ticket in tickets:
+            queue_time += ticket.time_in_queue
+            if ticket.state == "finished":
+                out_cnt += 1
+        print("A =", out_cnt / self.iterations)
+        print("Q =", out_cnt / len(tickets))
+        print("Wоч =", queue_time / len(tickets))
 
 
 if __name__ == '__main__':
