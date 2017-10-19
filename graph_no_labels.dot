@@ -1,3 +1,5 @@
+#!/usr/bin/env xdot
+
 digraph graphname {
     000 -> 000
     000 -> 010
