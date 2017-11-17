@@ -13,7 +13,7 @@ class Ticket:
 
 
 class Simulation:
-    def __init__(self, p=0.5, pi1=0.4, pi2=0.4):
+    def __init__(self, p=0.5, pi1=0.0, pi2=1.0):
         self.u = 1 - p
         self.u1 = 1 - pi1
         self.u2 = 1 - pi2
@@ -94,7 +94,7 @@ class Simulation:
         print(len(queue))
         print("A =", out_cnt / self.iterations)
         print("Q =", out_cnt / len(tickets))
-        print("Wоч =", queue_time/ len(tickets))
+        print("Wоч =", queue_time / len(tickets))
 
 
 if __name__ == '__main__':

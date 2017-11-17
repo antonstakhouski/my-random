@@ -1,0 +1,22 @@
+#!/usr/bin/env xdot
+
+digraph system {
+    00 -> 01 [label="λp"]
+    00 -> 02 [label="λ(1 - p)"]
+
+    01 -> 00 [label="μ"]
+    01 -> 11 [label="λp"]
+    01 -> 21 [label="λ(1 - p)"]
+
+    02 -> 22 [label="λ(1 - p)"]
+    02 -> 21 [label="λp"]
+    02 -> 00 [label="μ"]
+
+    11 -> 01 [label="μ"]
+
+    21 -> 02 [label="μ"]
+    21 -> 11 [label="λp"]
+
+    22 -> 02 [label="μ"]
+    22 -> 21 [label="λp"]
+}
