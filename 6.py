@@ -40,9 +40,8 @@ class Simulation:
 
         link = 0
 
-        link = input_stream[0][1]
-        current_request = 1
-        current_time = input_stream[0][0]
+        current_request = 0
+        current_time = 0
         while current_request < len(input_stream):
             if input_stream[current_request][0] < current_time:
                 if link == 0:
@@ -92,7 +91,10 @@ class Simulation:
                         else:
                             output_stream2 += 1
                         link = 0
-                        current_time = input_stream[current_request][0] + -math.log(random.uniform(0.0, 1.0)) / self.u
+                        current_time += -math.log(random.uniform(0.0, 1.0)) / self.u
+                else:
+                    current_time = input_stream[current_request][0] + -math.log(random.uniform(0.0, 1.0)) / self.u
+                    current_request += 1
 
         self.denial_count1 = denial_count1
         self.denial_count2 = denial_count2
@@ -101,6 +103,13 @@ class Simulation:
         request_stream = []
         current_time = 0.0
         counter = 0
+        val = random.uniform(0.0, 1.0)
+        if val <= self.p:
+            self.ticket1 += 1
+            request_stream.append((current_time, 1))
+        else:
+            self.ticket2 += 1
+            request_stream.append((current_time, 2))
 
         while counter < self.iterations:
             current_time += -math.log(random.uniform(0.0, 1.0)) / self.hl
